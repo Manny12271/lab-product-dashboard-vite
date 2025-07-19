@@ -4,7 +4,7 @@ import styles from '../styles/ProductCard.module.css'
 
 export default function ProductCard({ product, onRemove }) {
   return (
-    <Card className={`${styles.card} ${!product.inStock ? styles.outOfStock : ''}`}>
+    <Card className={`${styles.card} ${!product.inStock ? 'outOfStockClass' : ''}`}>
       <CardContent>
         <Typography variant="h6" className={styles.productName}>
           {product.name}
