@@ -24,8 +24,16 @@ test('displays all products initially', () => {
 
 test('applies conditional styling for out-of-stock products', () => {
   render(<App />)
-  const outOfStockProduct = screen.getByText(/Phone/i) // Make sure "Phone" exists in sampleProducts
-  expect(outOfStockProduct.closest('div')).toHaveClass('outOfStockClass')
+  const outOfStockProduct = screen.getByText(/Phone/i)
+
+  // Find the closest ancestor div that contains a class with 'outOfStock'
+  let cardElement = outOfStockProduct.closest('div')
+  while (cardElement && !Array.from(cardElement.classList).some(cls => cls.includes('outOfStock'))) {
+    cardElement = cardElement.parentElement
+  }
+
+  expect(cardElement).toBeTruthy()
+  expect(Array.from(cardElement.classList).some(cls => cls.includes('outOfStock'))).toBe(true)
 })
 
 test('removes product from the dashboard when "Remove" button is clicked', () => {

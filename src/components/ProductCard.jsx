@@ -1,19 +1,30 @@
-import React from 'react';
-import styles from '../styles/ProductCard.module.css';
+import React from 'react'
+import { Card, CardContent, Typography, Button } from '@mui/material'
+import styles from '../styles/ProductCard.module.css'
 
-const ProductCard = ({ product }) => {
+export default function ProductCard({ product, onRemove }) {
   return (
-    <div className>
-      {/* TODO: Apply conditional class to <div> above for out-of-stock items */}
-      
-      {/* TODO: Display product name */}
-
-      {/* TODO: Display product price */}
-
-      {/* TODO: Show if the product is in stock or out of stock */}
-      
-    </div>
-  );
-};
-
-export default ProductCard;
+    <Card className={`${styles.card} ${!product.inStock ? styles.outOfStock : ''}`}>
+      <CardContent>
+        <Typography variant="h6" className={styles.productName}>
+          {product.name}
+        </Typography>
+        <Typography variant="body1">${product.price}</Typography>
+        <Typography
+          variant="body2"
+          className={product.inStock ? styles.inStockText : styles.outOfStockText}
+        >
+          {product.inStock ? 'In Stock' : 'Out of Stock'}
+        </Typography>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={onRemove}
+          style={{ marginTop: '0.5rem' }}
+        >
+          Remove
+        </Button>
+      </CardContent>
+    </Card>
+  )
+}
